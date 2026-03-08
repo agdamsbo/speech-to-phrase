@@ -114,14 +114,17 @@ data:
       - "scene"
 
   # timers
-  - "<timer_set> [einen] Timer (auf|für) {seconds} Sekunden"
-  - "<timer_set> [einen] Timer (auf|für) 1 Minute"
-  - "<timer_set> [einen] Timer (auf|für) {minutes} Minuten"
-  - "<timer_set> [einen] Timer (auf|für) 1 Stunde"
-  - "<timer_set> [einen] Timer (auf|für) {hours} Stunden"
-  - "<timer_set> [einen] Timer (auf|für) 1 Stunde und 1 Minute"
-  - "<timer_set> [einen] Timer (auf|für) 1 Stunde und {minutes} Minuten"
-  - "<timer_set> [einen] Timer (auf|für) {hours} Stunden und {minutes} Minuten"
+  - "<timer_set> [einen|ein] {seconds} Sekunden Timer"
+  - "<timer_set> [einen|ein] {minutes} Minuten Timer"
+  - "<timer_set> [einen|ein] {hours} Stunden Timer"
+  - "<timer_set> [einen|ein] Timer (auf|für) {seconds} Sekunden"
+  - "<timer_set> [einen|ein] Timer (auf|für) 1 Minute"
+  - "<timer_set> [einen|ein] Timer (auf|für) {minutes} Minuten"
+  - "<timer_set> [einen|ein] Timer (auf|für) 1 Stunde"
+  - "<timer_set> [einen|ein] Timer (auf|für) {hours} Stunden"
+  - "<timer_set> [einen|ein] Timer (auf|für) 1 Stunde und 1 Minute"
+  - "<timer_set> [einen|ein] Timer (auf|für) 1 Stunde und {minutes} Minuten"
+  - "<timer_set> [einen|ein] Timer (auf|für) {hours} Stunden und {minutes} Minuten"
 
   - "<timer_cancel>[ (den|meinen)] Timer"
   - "<timer_cancel> (alle[ meine]|sämtliche) Timer"
@@ -131,34 +134,31 @@ data:
   - "Status (des|meines) Timers"
   - "wie lange läuft (der|mein) Timer noch"
 
-  # media
-  - "(pause|Weiter)"
-  - "nächster (Titel|Song)"
-  # - sentences:
-  #     - "(pause|resume) [the] {name}"
-  #     - "next [(track|item)] on [the] {name}"
-  #     - "skip [[the ](track|song)] on [the] {name}"
-  #   domains:
-  #     - "media_player"
+  # Medien
+  - "(pause|fortsetzen)"
+  - "nächster [(Titel|Eintrag)]"
+  - "überspringe [[diesen ](Titel|Song)]"
+  - sentences:
+      - "(pause|fortsetzen) [den] {name}"
+      - "nächster [(Titel|Eintrag)] auf [dem] {name}"
+      - "überspringe [[den ](Titel|Song)] auf [dem] {name}"
+    domains:
+      - "media_player"
 
-  # # temperature
+  # temperature
   - "wie[ (hoch|niedrig)] ist die temperatur"
-  - "wie[ (hoch|niedrig)] ist die temperatur in [der|dem] {area}"
+  - "wie[ (hoch|niedrig)] ist die temperatur (in|im) [der|dem] {area}"
   - "wie[ (hoch|niedrig)] ist die {area} temperatur"
-  - "wie warm ist es"
-  - "wie warm ist es im {area}"
-  - "wie warm ist es in [(der|dem)] {area}"
-   - sentences:
+  - sentences:
+      - "wie (warm|kalt) ist es"
+      - "wie warm ist [(der|die|das)] {name}"  
+    domains:
+      - "climate"
+
+  # sensors
+  - sentences:
       - "wie[ (hoch|niedrig)] ist die {name} temperatur"
       - "wie[ (hoch|niedrig)] ist die temperatur von [der|dem] {name}"
-      - "wie warm ist [(der|die|das)] {name}"
-     domains:
-       - "climate"
-
-  # # sensors
-  - sentences:
-      - "(wie|was) ist [der [wert von [dem|der]]] {name}"
-      - "wie hoch ist [der [wert von [dem|der]]] {name}"
     domains:
       - "sensor"
 
