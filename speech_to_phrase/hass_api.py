@@ -148,17 +148,31 @@ class Things:
                     # Used for tests
                     "metadata": {"domain": e.domain},
                 }
-                for e in self.entities if e.names is not None
-                for e_name in e.names if e_name is not None and isinstance(e_name, str)
+                for e in self.entities
+                if e.names is not None
+                for e_name in e.names
+                if e_name is not None and isinstance(e_name, str)
             ]
         }
 
         lists_dict["area"] = {
-            "values": [a_name for a in self.areas if a.names is not None for a_name in a.names if a_name is not None and isinstance(a_name, str)]
+            "values": [
+                a_name
+                for a in self.areas
+                if a.names is not None
+                for a_name in a.names
+                if a_name is not None and isinstance(a_name, str)
+            ]
         }
 
         lists_dict["floor"] = {
-            "values": [f_name for f in self.floors if f.names is not None for f_name in f.names if f_name is not None and isinstance(f_name, str)]
+            "values": [
+                f_name
+                for f in self.floors
+                if f.names is not None
+                for f_name in f.names
+                if f_name is not None and isinstance(f_name, str)
+            ]
         }
 
         return lists_dict
@@ -321,12 +335,22 @@ async def get_hass_info(token: str, uri: str) -> HomeAssistantInfo:
             msg = await websocket.receive_json()
             assert msg["success"], msg
             floors = {
-                floor_info["floor_id"]: floor_info for floor_info in msg["result"] if floor_info.get("floor_id")
+                floor_info["floor_id"]: floor_info
+                for floor_info in msg["result"]
+                if floor_info.get("floor_id")
             }
             for floor_info in floors.values():
                 names = [floor_info["name"]]
                 names.extend(floor_info.get("aliases", []))
-                things.floors.append(Floor(names=[name.strip() for name in names if name is not None and isinstance(name, str)]))
+                things.floors.append(
+                    Floor(
+                        names=[
+                            name.strip()
+                            for name in names
+                            if name is not None and isinstance(name, str)
+                        ]
+                    )
+                )
 
             # Areas
             await websocket.send_json(
@@ -334,11 +358,23 @@ async def get_hass_info(token: str, uri: str) -> HomeAssistantInfo:
             )
             msg = await websocket.receive_json()
             assert msg["success"], msg
-            areas = {area_info["area_id"]: area_info for area_info in msg["result"] if area_info.get("area_id")}
+            areas = {
+                area_info["area_id"]: area_info
+                for area_info in msg["result"]
+                if area_info.get("area_id")
+            }
             for area_info in areas.values():
                 names = [area_info["name"]]
                 names.extend(area_info.get("aliases", []))
-                things.areas.append(Area(names=[name.strip() for name in names if name is not None and isinstance(name, str)]))
+                things.areas.append(
+                    Area(
+                        names=[
+                            name.strip()
+                            for name in names
+                            if name is not None and isinstance(name, str)
+                        ]
+                    )
+                )
 
             # Contains aliases
             # Check area_id as well as area of device_id
@@ -363,7 +399,11 @@ async def get_hass_info(token: str, uri: str) -> HomeAssistantInfo:
                         # Skip disabled entities
                         continue
 
-                    name = entity_info.get("name") or entity_info.get("original_name") or entity_id
+                    name = (
+                        entity_info.get("name")
+                        or entity_info.get("original_name")
+                        or entity_id
+                    )
                     names.extend(entity_info.get("aliases", []))
 
                 attributes = states.get(entity_id, {}).get("attributes", {})
@@ -412,7 +452,11 @@ async def get_hass_info(token: str, uri: str) -> HomeAssistantInfo:
 
                 things.entities.append(
                     Entity(
-                        names=[name.strip() for name in names if name is not None and isinstance(name, str)],
+                        names=[
+                            name.strip()
+                            for name in names
+                            if name is not None and isinstance(name, str)
+                        ],
                         domain=domain,
                         entity_id=entity_id,
                         light_supports_color=light_supports_color,

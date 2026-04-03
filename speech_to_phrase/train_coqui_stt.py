@@ -282,7 +282,11 @@ async def _try_minimize(
             ],
         )
     except Exception as e:
-        _LOGGER.warning("fstminimize pipeline failed for %s. Executing fallback. Reason: %s", fst_path, e)
+        _LOGGER.warning(
+            "fstminimize pipeline failed for %s. Executing fallback. Reason: %s",
+            fst_path,
+            e,
+        )
         # Without minimize
         await tools.async_run_pipeline(
             compile_command,
