@@ -27,6 +27,8 @@ class Entity:
     names: List[str]
     domain: str
 
+    entity_id: Optional[str] = None
+
     # Domain-specific features
     light_supports_color: Optional[bool] = None
     light_supports_brightness: Optional[bool] = None
@@ -324,7 +326,9 @@ async def get_hass_info(token: str, uri: str) -> HomeAssistantInfo:
             for floor_info in floors.values():
                 names = [floor_info["name"]]
                 names.extend(floor_info.get("aliases", []))
-                things.floors.append(Floor(names=[name.strip() for name in names]))
+                things.floors.append(
+                    Floor(names=[name.strip() for name in names if name])
+                )
 
             # Areas
             await websocket.send_json(
@@ -336,7 +340,9 @@ async def get_hass_info(token: str, uri: str) -> HomeAssistantInfo:
             for area_info in areas.values():
                 names = [area_info["name"]]
                 names.extend(area_info.get("aliases", []))
-                things.areas.append(Area(names=[name.strip() for name in names]))
+                things.areas.append(
+                    Area(names=[name.strip() for name in names if name])
+                )
 
             # Contains aliases
             # Check area_id as well as area of device_id
@@ -410,8 +416,9 @@ async def get_hass_info(token: str, uri: str) -> HomeAssistantInfo:
 
                 things.entities.append(
                     Entity(
-                        names=[name.strip() for name in names],
+                        names=[name.strip() for name in names if name],
                         domain=domain,
+                        entity_id=entity_id,
                         light_supports_color=light_supports_color,
                         light_supports_brightness=light_supports_brightness,
                         fan_supports_speed=fan_supports_speed,
