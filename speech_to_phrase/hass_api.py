@@ -27,6 +27,8 @@ class Entity:
     names: List[str]
     domain: str
 
+    entity_id: Optional[str] = None
+
     # Domain-specific features
     light_supports_color: Optional[bool] = None
     light_supports_brightness: Optional[bool] = None
@@ -412,6 +414,7 @@ async def get_hass_info(token: str, uri: str) -> HomeAssistantInfo:
                     Entity(
                         names=[name.strip() for name in names if name is not None and isinstance(name, str)],
                         domain=domain,
+                        entity_id=entity_id,
                         light_supports_color=light_supports_color,
                         light_supports_brightness=light_supports_brightness,
                         fan_supports_speed=fan_supports_speed,
