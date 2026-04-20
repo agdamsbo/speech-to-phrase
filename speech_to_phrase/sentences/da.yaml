@@ -68,14 +68,14 @@ data:
   - sentences:
       - "(åbn|luk) {name}"
       - "(åbn|luk) {name} i {area}"
-      - "(er de|er) {name} åben[e]|lukket"
+      - "er {name} (åben|åbne|lukket|lukkede)"
     domains:
       - "cover"
 
   # locks
   - sentences:
-      - "(lås op|lås] {name}"
-      - "(er|er de) {name} låst|ulåst"
+      - "(lås op|lås) {name}"
+      - "(er|er de) {name} (låst|ulåst|låst op)"
     domains:
       - "lock"
 
@@ -116,8 +116,8 @@ data:
   - "(start|opret|sæt) ([et] ur|uret|nedtælling|[en] timer) til {hours} timer og {minutes} minutter"
 
   - "(afbryd|stop) ([min] (timer|nedtælling)|[mit] ur)"
-  - "(afbryd|stop) alle [mine] timere"
-  - "(pause|fortsæt] [min timer|mit ur]"
+  - "(afbryd|stop) alle [mine] (timere|nedtællinger|ure)"
+  - "(pause|paus|fortsæt) ([min] (timer|nedtælling)|[mit] ur)"
   - "(timer|nedtælling|ur) status"
   - "status på ([min] (timer|nedtælling)|[mit] ur)"
   - "[hvor meget] tid er der tilbage på [[min] (timer|nedtælling)|[mit] ur]"
